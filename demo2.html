@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sharon — Your AI Real Estate Team | firstmind.space</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --gold:#d4a843;
+  --gold-light:#f0c96a;
+  --gold-dim:#8a6a22;
+  --bg:#06060e;
+  --bg2:#0d0d1a;
+  --bg3:#111128;
+  --surface:#16162a;
+  --surface2:#1c1c35;
+  --text:#f0ede4;
+  --text2:#a8a49a;
+  --text3:#5c5a54;
+  --accent:#7c5cbf;
+  --green:#2ecc8a;
+  --red:#e05555;
+  --blue:#4a9eff;
+}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'DM Sans',sans-serif;
+  font-size:16px;
+  line-height:1.7;
+  overflow-x:hidden;
+}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--gold-dim);border-radius:2px}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  padding:1.2rem 3rem;
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(6,6,14,0.85);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(212,168,67,0.1);
+}
+.logo{
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.95rem;
+  color:var(--gold);
+  letter-spacing:0.05em;
+}
+.logo span{color:var(--text2)}
+.nav-for{
+  font-size:0.8rem;
+  color:var(--text2);
+  border:1px solid rgba(212,168,67,0.3);
+  padding:0.3rem 0.9rem;
+  border-radius:20px;
+}
+.nav-for strong{color:var(--gold)}
+
+/* HERO */
+.hero{
+  min-height:100vh;
+  display:flex;flex-direction:column;justify-content:center;
+  padding:8rem 3rem 4rem;
+  position:relative;
+  overflow:hidden;
+}
+.hero-canvas{
+  position:absolute;inset:0;
+  pointer-events:none;
+  z-index:0;
+}
+.hero-content{position:relative;z-index:1;max-width:860px}
+.hero-tag{
+  display:inline-flex;align-items:center;gap:0.5rem;
+  font-size:0.75rem;font-family:'JetBrains Mono',monospace;
+  color:var(--gold);
+  background:rgba(212,168,67,0.08);
+  border:1px solid rgba(212,168,67,0.25);
+  padding:0.4rem 1rem;border-radius:20px;
+  margin-bottom:2rem;
+  opacity:0;animation:fadeUp 0.6s 0.2s forwards;
+}
+.dot-live{
+  width:6px;height:6px;border-radius:50%;
+  background:var(--green);
+  animation:pulse-dot 1.5s infinite;
+}
+@keyframes pulse-dot{0%,100%{box-shadow:0 0 0 0 rgba(46,204,138,0.4)}50%{box-shadow:0 0 0 5px rgba(46,204,138,0)}}
+h1{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2.8rem,6vw,5rem);
+  line-height:1.1;
+  margin-bottom:1.5rem;
+  opacity:0;animation:fadeUp 0.6s 0.4s forwards;
+}
+h1 em{
+  font-style:italic;
+  color:var(--gold);
+}
+.hero-sub{
+  font-size:1.15rem;
+  color:var(--text2);
+  max-width:600px;
+  margin-bottom:2.5rem;
+  opacity:0;animation:fadeUp 0.6s 0.6s forwards;
+}
+.hero-sub strong{color:var(--text)}
+.hero-cta{
+  display:flex;gap:1rem;flex-wrap:wrap;
+  opacity:0;animation:fadeUp 0.6s 0.8s forwards;
+}
+.btn-gold{
+  background:var(--gold);
+  color:#06060e;
+  font-weight:500;
+  padding:0.85rem 2rem;
+  border-radius:6px;
+  border:none;cursor:pointer;
+  font-size:0.95rem;
+  font-family:'DM Sans',sans-serif;
+  transition:all 0.2s;
+  text-decoration:none;display:inline-block;
+}
+.btn-gold:hover{background:var(--gold-light);transform:translateY(-2px)}
+.btn-ghost{
+  color:var(--text2);
+  padding:0.85rem 2rem;
+  border-radius:6px;
+  border:1px solid rgba(255,255,255,0.12);
+  cursor:pointer;font-size:0.95rem;
+  font-family:'DM Sans',sans-serif;
+  background:transparent;
+  transition:all 0.2s;
+  text-decoration:none;display:inline-block;
+}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold)}
+
+.hero-stats{
+  display:flex;gap:3rem;margin-top:4rem;
+  opacity:0;animation:fadeUp 0.6s 1s forwards;
+  flex-wrap:wrap;
+}
+.stat-item{}
+.stat-num{
+  font-family:'Playfair Display',serif;
+  font-size:2.2rem;font-weight:700;
+  color:var(--gold);
+  display:block;
+}
+.stat-label{font-size:0.8rem;color:var(--text3);text-transform:uppercase;letter-spacing:0.08em}
+
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(24px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+/* HIGHLIGHT BANNER (78%) */
+.highlight-wrapper{
+  padding: 0 3rem;
+  margin-top: -3rem;
+  position: relative;
+  z-index: 10;
+}
+.problem-highlight{
+  background:linear-gradient(135deg,rgba(212,168,67,0.1),rgba(124,92,191,0.1));
+  border:1px solid rgba(212,168,67,0.3);
+  border-radius:16px;padding:3rem 2rem;
+  text-align:center;
+  max-width: 860px;
+  margin: 0 auto;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+  backdrop-filter: blur(10px);
+}
+.problem-highlight .big-num{
+  font-family:'Playfair Display',serif;
+  font-size:4.5rem;color:var(--gold);font-weight:700;
+  line-height: 1;
+}
+.problem-highlight p{color:var(--text2);margin-top:0.5rem; font-size: 1.1rem;}
+
+/* SECTION SHARED */
+section{padding:6rem 3rem;position:relative}
+.section-tag{
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.85rem;color:var(--gold);
+  text-transform:uppercase;letter-spacing:0.12em;
+  margin-bottom:0.75rem;
+  display:block;
+}
+h2{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(1.9rem,4vw,3rem);
+  line-height:1.2;margin-bottom:1rem;
+}
+h2 em{color:var(--gold);font-style:italic}
+.section-intro{
+  font-size:1.05rem;color:var(--text2);
+  max-width:580px;margin-bottom:3rem;
+}
+.divider{
+  border:none;
+  border-top:1px solid rgba(255,255,255,0.05);
+  margin:0;
+}
+
+/* SIMULATION SECTION (01) */
+.sim-section{
+  background:var(--bg);
+  padding:6rem 0;
+}
+.sim-section .inner{padding:0 3rem; max-width: 1400px; margin: 0 auto;}
+.sim-wrapper{
+  display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start;
+  margin-top:3rem;
+}
+@media(max-width:900px){.sim-wrapper{grid-template-columns:1fr}}
+.phone-frame{
+  background:var(--bg3);
+  border:2px solid rgba(255,255,255,0.1);
+  border-radius:40px;
+  padding:2.5rem 1.5rem 2rem;
+  max-width:320px;
+  margin:0 auto;
+  position:relative;
+  box-shadow:0 40px 80px rgba(0,0,0,0.6);
+}
+.phone-notch{
+  width:80px;height:8px;background:rgba(255,255,255,0.1);
+  border-radius:4px;margin:0 auto 1.5rem;
+}
+.chat-header{
+  display:flex;align-items:center;gap:0.75rem;
+  margin-bottom:1.25rem;
+  padding-bottom:1rem;
+  border-bottom:1px solid rgba(255,255,255,0.06);
+}
+.chat-avatar{
+  width:36px;height:36px;border-radius:50%;
+  background:linear-gradient(135deg,var(--gold),var(--accent));
+  display:flex;align-items:center;justify-content:center;
+  font-size:0.75rem;font-weight:500;color:#06060e;
+}
+.chat-name{font-size:0.85rem;font-weight:500}
+.chat-status{font-size:0.7rem;color:var(--green)}
+.chat-messages{
+  display:flex;flex-direction:column;gap:0.75rem;
+  min-height:320px;
+  overflow:hidden;
+}
+.msg{
+  max-width:85%;
+  padding:0.6rem 0.9rem;
+  border-radius:12px;
+  font-size:0.8rem;
+  line-height:1.5;
+  opacity:0;
+  transform:translateY(8px);
+  transition:all 0.4s;
+}
+.msg.show{opacity:1;transform:translateY(0)}
+.msg.incoming{
+  background:var(--surface2);
+  align-self:flex-start;
+  border-bottom-left-radius:4px;
+}
+.msg.outgoing{
+  background:rgba(212,168,67,0.15);
+  border:1px solid rgba(212,168,67,0.25);
+  align-self:flex-end;
+  border-bottom-right-radius:4px;
+  color:var(--gold-light);
+}
+.msg.system{
+  background:rgba(46,204,138,0.08);
+  border:1px solid rgba(46,204,138,0.2);
+  align-self:center;
+  text-align:center;
+  max-width:95%;
+  font-size:0.72rem;
+  color:var(--green);
+  border-radius:6px;
+}
+.typing{
+  display:flex;gap:4px;padding:0.6rem 0.9rem;
+  background:var(--surface2);border-radius:12px;
+  align-self:flex-start;
+  opacity:0;transition:opacity 0.3s;
+}
+.typing.show{opacity:1}
+.typing span{
+  width:5px;height:5px;border-radius:50%;background:var(--text3);
+  animation:bounce 1.2s infinite;
+}
+.typing span:nth-child(2){animation-delay:0.15s}
+.typing span:nth-child(3){animation-delay:0.3s}
+@keyframes bounce{0%,100%{transform:translateY(0)}40%{transform:translateY(-5px)}}
+
+.sim-steps{display:flex;flex-direction:column;gap:0}
+.sim-step{
+  display:flex;gap:1.25rem;padding:1.5rem 0;
+  border-left:1px solid rgba(255,255,255,0.06);
+  padding-left:1.75rem;
+  position:relative;
+  opacity:0.35;
+  transition:opacity 0.5s;
+}
+.sim-step.active{opacity:1}
+.sim-step.active .step-dot{background:var(--gold)}
+.sim-step.done{opacity:0.7}
+.sim-step.done .step-dot{background:var(--green)}
+.step-dot{
+  position:absolute;left:-6px;top:1.75rem;
+  width:11px;height:11px;border-radius:50%;
+  background:var(--surface2);
+  border:2px solid rgba(255,255,255,0.15);
+  transition:background 0.3s;
+}
+.step-num{
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.65rem;color:var(--text3);
+  min-width:60px;padding-top:0.2rem;
+}
+.step-content h4{font-size:0.95rem;font-weight:500;margin-bottom:0.25rem}
+.step-content p{font-size:0.82rem;color:var(--text2)}
+.step-badge{
+  display:inline-block;margin-top:0.5rem;
+  font-size:0.65rem;font-family:'JetBrains Mono',monospace;
+  padding:0.2rem 0.6rem;border-radius:4px;
+  background:rgba(212,168,67,0.1);
+  border:1px solid rgba(212,168,67,0.2);
+  color:var(--gold);
+}
+.sim-controls{
+  display:flex;gap:0.75rem;margin-top:2rem;
+}
+.btn-sim{
+  background:var(--surface);
+  border:1px solid rgba(255,255,255,0.1);
+  color:var(--text);
+  padding:0.6rem 1.25rem;
+  border-radius:6px;cursor:pointer;
+  font-size:0.85rem;font-family:'DM Sans',sans-serif;
+  transition:all 0.2s;
+}
+.btn-sim:hover{border-color:var(--gold);color:var(--gold)}
+.btn-sim.active-btn{background:var(--gold);color:#06060e;border-color:var(--gold)}
+
+/* FANCY FLOW ARCHITECTURE (02) */
+.flow-section{background:var(--bg2)}
+.fancy-flow-wrap{
+  margin-top:2rem;
+  background:var(--surface);
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:24px;
+  padding:3rem 2rem;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+  overflow-x:auto;
+}
+.fancy-svg{
+  min-width:900px;
+  width:100%;
+  display:block;
+}
+.node-rect { fill: var(--surface2); stroke: rgba(255,255,255,0.1); transition: all 0.3s; }
+.source-rect { fill: rgba(212,168,67,0.05); stroke: rgba(212,168,67,0.2); }
+.agent-group { cursor: pointer; }
+.agent-group:hover .node-rect {
+  stroke: var(--gold);
+  filter: drop-shadow(0 0 15px rgba(212,168,67,0.25));
+}
+.agent-group:hover text.title { fill: var(--gold); }
+.flow-line { fill: none; stroke: rgba(212,168,67,0.25); stroke-width: 2.5; stroke-dasharray: 8 6; animation: flowDash 15s linear infinite; }
+.flow-line-green { stroke: rgba(46,204,138,0.4); }
+.flow-line-blue { stroke: rgba(74,158,255,0.4); }
+.flow-line-red { stroke: rgba(224,85,85,0.4); }
+@keyframes flowDash { from {stroke-dashoffset: 400;} to { stroke-dashoffset: 0; } }
+
+/* AGENTS GRID INSIDE ARCHITECTURE */
+.agents-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:1.5rem;
+  margin-top: 3rem;
+}
+.agent-card{
+  background:var(--surface);
+  border:1px solid rgba(255,255,255,0.06);
+  border-radius:16px;
+  padding:2rem;
+  position:relative;overflow:hidden;
+  transition:all 0.3s;
+}
+.agent-card::before{
+  content:'';
+  position:absolute;top:0;left:0;right:0;height:2px;
+  background:var(--agent-color,var(--gold));
+  transform:scaleX(0);transform-origin:left;
+  transition:transform 0.4s;
+}
+.agent-card:hover::before{transform:scaleX(1)}
+.agent-card:hover{
+  transform:translateY(-4px);
+  border-color:rgba(212,168,67,0.2);
+  box-shadow:0 20px 60px rgba(0,0,0,0.4);
+}
+.agent-num{
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.7rem;color:var(--text3);
+  margin-bottom:0.75rem;display:block;
+}
+.agent-name{font-size:1.05rem;font-weight:500;margin-bottom:0.5rem;}
+.agent-role{
+  font-size:0.8rem;color:var(--text2);margin-bottom:1.25rem;
+  padding-bottom:1.25rem;border-bottom:1px solid rgba(255,255,255,0.06);
+}
+.agent-features{list-style:none;display:flex;flex-direction:column;gap:0.5rem;}
+.agent-features li{font-size:0.85rem;color:var(--text2);display:flex;align-items:center;gap:0.5rem;}
+.agent-features li::before{content:'→';color:var(--agent-color,var(--gold));flex-shrink:0;}
+.agent-tag{
+  display:inline-block;margin-top:1.25rem;font-size:0.7rem;
+  padding:0.25rem 0.75rem;border-radius:20px;border:1px solid;
+}
+
+/* CRM SECTION (03) */
+.crm-section{background:var(--bg)}
+.pipeline-wrap{
+  display:flex;gap:1rem;overflow-x:auto;
+  padding-bottom:1rem;
+  margin-top:2rem;
+}
+.pipeline-col{
+  flex:none;min-width:180px;
+}
+.col-header{
+  font-size:0.75rem;font-family:'JetBrains Mono',monospace;
+  color:var(--text3);text-transform:uppercase;letter-spacing:0.08em;
+  margin-bottom:0.75rem;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.col-count{
+  background:var(--surface2);
+  padding:0.15rem 0.5rem;border-radius:10px;
+  font-size:0.65rem;color:var(--text2);
+}
+.crm-card{
+  background:var(--surface);
+  border:1px solid rgba(255,255,255,0.06);
+  border-radius:8px;
+  padding:1rem;
+  margin-bottom:0.75rem;
+  font-size:0.85rem;
+  transition:all 0.2s;
+}
+.crm-card:hover{border-color:rgba(212,168,67,0.2);transform:translateX(2px)}
+.crm-card-name{font-weight:500;margin-bottom:0.25rem}
+.crm-card-detail{color:var(--text2);font-size:0.75rem}
+.lead-score{
+  display:inline-block;
+  margin-top:0.6rem;
+  padding:0.2rem 0.5rem;
+  border-radius:4px;
+  font-size:0.7rem;
+  font-family:'JetBrains Mono',monospace;
+}
+.score-hot{background:rgba(212,168,67,0.15);color:var(--gold);border:1px solid rgba(212,168,67,0.3)}
+.score-warm{background:rgba(74,158,255,0.1);color:var(--blue);border:1px solid rgba(74,158,255,0.2)}
+.score-cold{background:rgba(255,255,255,0.04);color:var(--text3);border:1px solid rgba(255,255,255,0.08)}
+
+/* STACK SECTION (05) */
+.stack-section{background:var(--bg)}
+.stack-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:1rem;margin-top:2rem;
+}
+.stack-card{
+  background:var(--surface);
+  border:1px solid rgba(255,255,255,0.06);
+  border-radius:12px;padding:1.5rem;
+  transition:all 0.2s;
+}
+.stack-card:hover{border-color:rgba(212,168,67,0.2);transform:translateY(-2px)}
+.stack-icon{font-size:1.5rem;margin-bottom:0.75rem;display:block}
+.stack-card h4{font-size:0.9rem;font-weight:500;margin-bottom:0.4rem}
+.stack-card p{font-size:0.78rem;color:var(--text2)}
+
+/* ROI SECTION (04) */
+.roi-section{
+  background:var(--bg2);
+  position:relative;overflow:hidden;
+}
+.roi-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;
+}
+@media(max-width:800px){.roi-grid{grid-template-columns:1fr}}
+.roi-numbers{display:flex;flex-direction:column;gap:1.5rem}
+.roi-item{
+  display:flex;gap:1.5rem;align-items:center;
+  padding:1.5rem;
+  background:var(--surface);border-radius:12px;
+  border:1px solid rgba(255,255,255,0.06);
+  transition:all 0.3s;
+}
+.roi-item:hover{border-color:rgba(212,168,67,0.2)}
+.roi-num{
+  font-family:'Playfair Display',serif;
+  font-size:2.5rem;color:var(--gold);
+  min-width:100px;
+}
+.roi-desc h4{font-size:0.95rem;font-weight:500;margin-bottom:0.2rem}
+.roi-desc p{font-size:0.82rem;color:var(--text2)}
+
+/* CTA SECTION (06) */
+.cta-section{
+  background:radial-gradient(ellipse at center, rgba(212,168,67,0.08) 0%, transparent 70%);
+  text-align:center;
+  padding:8rem 3rem;
+  border-top:1px solid rgba(212,168,67,0.1);
+}
+.cta-section h2{margin-bottom:1rem}
+.cta-section p{color:var(--text2);margin-bottom:2.5rem;font-size:1.1rem}
+.cta-name{color:var(--gold);font-style:italic}
+
+/* FOOTER */
+footer{
+  background:var(--bg2);
+  padding:2rem 3rem;
+  display:flex;justify-content:space-between;align-items:center;
+  flex-wrap:wrap;gap:1rem;
+  border-top:1px solid rgba(255,255,255,0.04);
+}
+footer p{font-size:0.8rem;color:var(--text3)}
+.footer-brand{
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.85rem;color:var(--gold);
+}
+
+/* SCROLL REVEAL */
+.reveal{
+  opacity:0;transform:translateY(30px);
+  transition:opacity 0.7s,transform 0.7s;
+}
+.reveal.visible{opacity:1;transform:none}
+
+/* CANVAS PARTICLES */
+canvas#particles{
+  position:absolute;inset:0;
+  pointer-events:none;
+  opacity:0.5;
+}
+
+/* GLOW ORBS */
+.orb{
+  position:absolute;border-radius:50%;
+  filter:blur(80px);pointer-events:none;z-index:0;
+}
+.orb1{
+  width:600px;height:600px;
+  background:radial-gradient(circle,rgba(212,168,67,0.04) 0%,transparent 70%);
+  top:-200px;right:-100px;
+}
+.orb2{
+  width:400px;height:400px;
+  background:radial-gradient(circle,rgba(124,92,191,0.05) 0%,transparent 70%);
+  bottom:-100px;left:-100px;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+  nav{padding:1rem 1.5rem}
+  section{padding:4rem 1.5rem}
+  .hero{padding:6rem 1.5rem 3rem}
+  .hero-stats{gap:2rem}
+  .sim-section .inner{padding:0 1.5rem}
+  .flow-section{padding:4rem 1.5rem}
+  .highlight-wrapper{padding: 0 1.5rem;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">firstmind<span>.space</span></div>
+  <div class="nav-for">Built personally for <strong>Sharon</strong> · Texas Real Estate</div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <canvas id="particles"></canvas>
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="hero-content">
+    <div class="hero-tag">
+      <span class="dot-live"></span>
+      6-Agent AI System · Built for Austin Real Estate
+    </div>
+    <h1>Sharon, meet your<br><em>AI team</em> that never<br>sleeps.</h1>
+    <p class="hero-sub">
+      While you're showing homes, attending closings, and living life —<br>
+      <strong>6 intelligent agents</strong> are responding to every lead, building trust, and booking your calendar.
+    </p>
+    <div class="hero-cta">
+      <a href="#simulation" class="btn-gold">See It In Action</a>
+      <a href="#flow" class="btn-ghost">View Architecture ↓</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <span class="stat-num" data-count="60">0</span>
+        <span class="stat-label">Second Response Time</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num" data-count="6">0</span>
+        <span class="stat-label">AI Agents Working 24/7</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num" data-count="0">0</span>
+        <span class="stat-label">Leads Left Behind</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HIGHLIGHT BANNER (Preserved 78% stat) -->
+<div class="highlight-wrapper reveal">
+  <div class="problem-highlight">
+    <div class="big-num" id="leak-num">78%</div>
+    <p>of real estate leads go to the first agent who responds. <strong>That can be you — every time.</strong></p>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- SIMULATION (01) -->
+<section class="sim-section" id="simulation">
+  <div class="inner reveal">
+    <span class="section-tag">01 · Live Simulation</span>
+    <h2>Watch a lead become<br>a <em>client relationship.</em></h2>
+    <p class="section-intro">Sarah from Denver just clicked your Zillow listing. Here's exactly what happens next — in real time.</p>
+
+    <div class="sim-wrapper">
+
+      <!-- PHONE -->
+      <div>
+        <div class="phone-frame">
+          <div class="phone-notch"></div>
+          <div class="chat-header">
+            <div class="chat-avatar">SC</div>
+            <div>
+              <div class="chat-name">Sharon's Concierge</div>
+              <div class="chat-status">● Online</div>
+            </div>
+          </div>
+          <div class="chat-messages" id="chatbox">
+            <!-- Messages injected by JS -->
+          </div>
+          <div class="typing" id="typing-indicator">
+            <span></span><span></span><span></span>
+          </div>
+        </div>
+        <div class="sim-controls">
+          <button class="btn-sim active-btn" id="btn-play" onclick="startSim()">▶ Play Simulation</button>
+          <button class="btn-sim" id="btn-reset" onclick="resetSim()">↺ Reset</button>
+        </div>
+      </div>
+
+      <!-- STEPS -->
+      <div>
+        <div class="sim-steps" id="sim-steps">
+          <div class="sim-step" id="step-0">
+            <div class="step-dot"></div>
+            <div class="step-num">00:00</div>
+            <div class="step-content">
+              <h4>Lead Captured</h4>
+              <p>Sarah clicks your Zillow listing from Denver. Agent 1 detects a new lead instantly.</p>
+              <span class="step-badge">Zillow Webhook → CRM</span>
+            </div>
+          </div>
+          <div class="sim-step" id="step-1">
+            <div class="step-dot"></div>
+            <div class="step-num">00:38</div>
+            <div class="step-content">
+              <h4>Instant Warm Response</h4>
+              <p>Sarah receives a personal message — within 38 seconds of clicking.</p>
+              <span class="step-badge">Agent 1 → WhatsApp/SMS</span>
+            </div>
+          </div>
+          <div class="sim-step" id="step-2">
+            <div class="step-dot"></div>
+            <div class="step-num">02:15</div>
+            <div class="step-content">
+              <h4>Conversation Started</h4>
+              <p>Sarah replies. Agent 2 begins understanding her family, budget, and timeline.</p>
+              <span class="step-badge">Agent 2 → Guidance Mode</span>
+            </div>
+          </div>
+          <div class="sim-step" id="step-3">
+            <div class="step-dot"></div>
+            <div class="step-num">04:50</div>
+            <div class="step-content">
+              <h4>Intent Detected: WARM</h4>
+              <p>Sarah mentions "we need to be in Austin by August." Agent 3 scores her as urgent.</p>
+              <span class="step-badge">Agent 3 → Score: 82/100</span>
+            </div>
+          </div>
+          <div class="sim-step" id="step-4">
+            <div class="step-dot"></div>
+            <div class="step-num">06:30</div>
+            <div class="step-content">
+              <h4>Meeting Booked</h4>
+              <p>Agent 4 offers a Zoom consultation. Sarah picks a time. Your calendar is updated.</p>
+              <span class="step-badge">Agent 4 → Google Calendar</span>
+            </div>
+          </div>
+          <div class="sim-step" id="step-5">
+            <div class="step-dot"></div>
+            <div class="step-num">Day 3</div>
+            <div class="step-content">
+              <h4>Nurture Begins</h4>
+              <p>Sarah receives a personalised email about Round Rock schools. She feels cared for.</p>
+              <span class="step-badge">Agent 5 → Day 3 Email</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- SYSTEM ARCHITECTURE (02) - FANCY SVG + AGENTS -->
+<section class="flow-section reveal" id="flow">
+  <span class="section-tag">02 · System Architecture</span>
+  <h2>How your <em>6 AI Agents</em><br>work together.</h2>
+  <p class="section-intro">Every agent has one job. Data flows intelligently and automatically. Hover over the nodes in the architecture to explore the workflow.</p>
+  
+  <div class="fancy-flow-wrap">
+    <svg viewBox="0 0 1000 600" class="fancy-svg" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur stdDeviation="5" result="blur" />
+          <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+        </filter>
+      </defs>
+
+      <!-- Connection Paths -->
+      <path id="p1" d="M 200,60 C 200,100 500,80 500,120" class="flow-line"/>
+      <path id="p2" d="M 350,60 C 350,100 500,80 500,120" class="flow-line"/>
+      <path id="p3" d="M 500,60 L 500,120" class="flow-line"/>
+      <path id="p4" d="M 650,60 C 650,100 500,80 500,120" class="flow-line"/>
+      <path id="p5" d="M 800,60 C 800,100 500,80 500,120" class="flow-line"/>
+
+      <path id="pA1" d="M 500,190 L 500,240" class="flow-line"/>
+      <path id="pA2" d="M 500,310 L 500,360" class="flow-line"/>
+
+      <!-- Branch Paths -->
+      <path id="pA3_hot" d="M 350,395 L 200,395 L 200,480" class="flow-line flow-line-green"/>
+      <path id="pA3_nurture" d="M 500,430 L 500,480" class="flow-line flow-line-blue"/>
+      <path id="pA3_cold" d="M 650,395 L 800,395 L 800,480" class="flow-line flow-line-red"/>
+
+      <!-- Glowing Animated Data Packets -->
+      <circle r="4.5" fill="#d4a843" filter="url(#glow)"><animateMotion dur="2.5s" repeatCount="indefinite"><mpath href="#p1"/></animateMotion></circle>
+      <circle r="4.5" fill="#d4a843" filter="url(#glow)"><animateMotion dur="2.1s" repeatCount="indefinite" begin="0.5s"><mpath href="#p2"/></animateMotion></circle>
+      <circle r="4.5" fill="#d4a843" filter="url(#glow)"><animateMotion dur="1.8s" repeatCount="indefinite" begin="1s"><mpath href="#p3"/></animateMotion></circle>
+      <circle r="4.5" fill="#d4a843" filter="url(#glow)"><animateMotion dur="2.3s" repeatCount="indefinite" begin="0.2s"><mpath href="#p4"/></animateMotion></circle>
+      <circle r="4.5" fill="#d4a843" filter="url(#glow)"><animateMotion dur="2.7s" repeatCount="indefinite" begin="0.8s"><mpath href="#p5"/></animateMotion></circle>
+
+      <circle r="5" fill="#d4a843" filter="url(#glow)"><animateMotion dur="1.5s" repeatCount="indefinite"><mpath href="#pA1"/></animateMotion></circle>
+      <circle r="5" fill="#d4a843" filter="url(#glow)"><animateMotion dur="1.5s" repeatCount="indefinite"><mpath href="#pA2"/></animateMotion></circle>
+
+      <circle r="5" fill="#2ecc8a" filter="url(#glow)"><animateMotion dur="1.8s" repeatCount="indefinite"><mpath href="#pA3_hot"/></animateMotion></circle>
+      <circle r="5" fill="#4a9eff" filter="url(#glow)"><animateMotion dur="1.8s" repeatCount="indefinite"><mpath href="#pA3_nurture"/></animateMotion></circle>
+      <circle r="5" fill="#e05555" filter="url(#glow)"><animateMotion dur="1.8s" repeatCount="indefinite"><mpath href="#pA3_cold"/></animateMotion></circle>
+
+      <!-- Lead Sources Top Row -->
+      <g class="source-group"><rect x="150" y="20" width="100" height="40" rx="8" class="source-rect"/><text x="200" y="45" text-anchor="middle" fill="#d4a843" font-size="13" font-family="JetBrains Mono,monospace">Zillow</text></g>
+      <g class="source-group"><rect x="300" y="20" width="100" height="40" rx="8" class="source-rect"/><text x="350" y="45" text-anchor="middle" fill="#d4a843" font-size="13" font-family="JetBrains Mono,monospace">Instagram</text></g>
+      <g class="source-group"><rect x="450" y="20" width="100" height="40" rx="8" class="source-rect"/><text x="500" y="45" text-anchor="middle" fill="#d4a843" font-size="13" font-family="JetBrains Mono,monospace">Facebook</text></g>
+      <g class="source-group"><rect x="600" y="20" width="100" height="40" rx="8" class="source-rect"/><text x="650" y="45" text-anchor="middle" fill="#d4a843" font-size="13" font-family="JetBrains Mono,monospace">WhatsApp</text></g>
+      <g class="source-group"><rect x="750" y="20" width="100" height="40" rx="8" class="source-rect"/><text x="800" y="45" text-anchor="middle" fill="#d4a843" font-size="13" font-family="JetBrains Mono,monospace">Website</text></g>
+
+      <!-- Central Agents -->
+      <g class="agent-group">
+        <rect x="350" y="120" width="300" height="70" rx="12" class="node-rect"/>
+        <text x="500" y="145" text-anchor="middle" class="title" fill="#f0ede4" font-weight="bold" font-size="14" font-family="DM Sans,sans-serif">AGENT 1 — Lead Intake</text>
+        <text x="500" y="165" text-anchor="middle" fill="#a8a49a" font-size="12" font-family="DM Sans,sans-serif">Responds in &lt; 60s · Omnichannel</text>
+      </g>
+      
+      <g class="agent-group">
+        <rect x="350" y="240" width="300" height="70" rx="12" class="node-rect"/>
+        <text x="500" y="265" text-anchor="middle" class="title" fill="#f0ede4" font-weight="bold" font-size="14" font-family="DM Sans,sans-serif">AGENT 2 — Relocation Guide</text>
+        <text x="500" y="285" text-anchor="middle" fill="#a8a49a" font-size="12" font-family="DM Sans,sans-serif">Learns budget, timeline, needs</text>
+      </g>
+      
+      <g class="agent-group">
+        <rect x="350" y="360" width="300" height="70" rx="12" class="node-rect"/>
+        <text x="500" y="385" text-anchor="middle" class="title" fill="#f0ede4" font-weight="bold" font-size="14" font-family="DM Sans,sans-serif">AGENT 3 — Intent Detector</text>
+        <text x="500" y="405" text-anchor="middle" fill="#a8a49a" font-size="12" font-family="DM Sans,sans-serif">Scores sentiment · Routes intelligently</text>
+      </g>
+
+      <!-- Output Branch Agents -->
+      <g class="agent-group">
+        <rect x="70" y="480" width="260" height="70" rx="12" class="node-rect"/>
+        <text x="200" y="505" text-anchor="middle" class="title" fill="#2ecc8a" font-weight="bold" font-size="14" font-family="DM Sans,sans-serif">AGENT 4 — Appointments</text>
+        <text x="200" y="525" text-anchor="middle" fill="#a8a49a" font-size="12" font-family="DM Sans,sans-serif">Books meetings &amp; tours instantly</text>
+        <text x="200" y="465" text-anchor="middle" fill="#2ecc8a" font-size="11" font-weight="bold" font-family="JetBrains Mono,monospace">🔥 HOT LEAD</text>
+      </g>
+      
+      <g class="agent-group">
+        <rect x="370" y="480" width="260" height="70" rx="12" class="node-rect"/>
+        <text x="500" y="505" text-anchor="middle" class="title" fill="#4a9eff" font-weight="bold" font-size="14" font-family="DM Sans,sans-serif">AGENT 5 — Nurture</text>
+        <text x="500" y="525" text-anchor="middle" fill="#a8a49a" font-size="12" font-family="DM Sans,sans-serif">90-Day personalised journey</text>
+        <text x="500" y="465" text-anchor="middle" fill="#4a9eff" font-size="11" font-weight="bold" font-family="JetBrains Mono,monospace">☁ WARM LEAD</text>
+      </g>
+      
+      <g class="agent-group">
+        <rect x="670" y="480" width="260" height="70" rx="12" class="node-rect"/>
+        <text x="800" y="505" text-anchor="middle" class="title" fill="#e05555" font-weight="bold" font-size="14" font-family="DM Sans,sans-serif">AGENT 6 — Reactivation</text>
+        <text x="800" y="525" text-anchor="middle" fill="#a8a49a" font-size="12" font-family="DM Sans,sans-serif">Wakes up old / cold contacts</text>
+        <text x="800" y="465" text-anchor="middle" fill="#e05555" font-size="11" font-weight="bold" font-family="JetBrains Mono,monospace">❄ COLD LEAD</text>
+      </g>
+    </svg>
+  </div>
+
+  <!-- Agent Details Grid -->
+  <div class="agents-grid">
+    <div class="agent-card reveal" style="--agent-color:#d4a843">
+      <span class="agent-num">AGENT 01 & 02</span>
+      <div class="agent-name">Intake & Guidance</div>
+      <div class="agent-role">The welcoming committee</div>
+      <ul class="agent-features">
+        <li>Instant Omni-channel response</li>
+        <li>Friendly, natural advisory tone</li>
+        <li>Learns exact budget & timelines</li>
+      </ul>
+    </div>
+    <div class="agent-card reveal" style="--agent-color:#9b59b6">
+      <span class="agent-num">AGENT 03 & 04</span>
+      <div class="agent-name">Detection & Booking</div>
+      <div class="agent-role">The closing logic</div>
+      <ul class="agent-features">
+        <li>Detects urgency & hesitations</li>
+        <li>Zero-friction calendar syncing</li>
+        <li>Only books when trust is built</li>
+      </ul>
+    </div>
+    <div class="agent-card reveal" style="--agent-color:#4a9eff">
+      <span class="agent-num">AGENT 05 & 06</span>
+      <div class="agent-name">Nurture & Recovery</div>
+      <div class="agent-role">The long-term play</div>
+      <ul class="agent-features">
+        <li>Tailored 90-day content journey</li>
+        <li>Re-engages old database leads</li>
+        <li>Turns lost money into revenue</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- CRM PIPELINE (03) -->
+<section class="crm-section reveal" id="crm">
+  <span class="section-tag">03 · CRM Pipeline</span>
+  <h2>Your leads, <em>organised.</em><br>Always.</h2>
+  <p class="section-intro">Every lead moves through a clear pipeline. Nothing gets lost. You always know who's ready to buy without doing the manual entry.</p>
+  <div class="pipeline-wrap">
+    <div class="pipeline-col">
+      <div class="col-header">New Lead <span class="col-count">3</span></div>
+      <div class="crm-card">
+        <div class="crm-card-name">Sarah M.</div>
+        <div class="crm-card-detail">Denver → Austin · 3 kids</div>
+        <span class="lead-score score-hot">⬆ Score 82</span>
+      </div>
+      <div class="crm-card">
+        <div class="crm-card-name">James K.</div>
+        <div class="crm-card-detail">Zillow inquiry · July move</div>
+        <span class="lead-score score-warm">Score 65</span>
+      </div>
+      <div class="crm-card">
+        <div class="crm-card-name">Priya S.</div>
+        <div class="crm-card-detail">Instagram DM · exploring</div>
+        <span class="lead-score score-cold">Score 30</span>
+      </div>
+    </div>
+    <div class="pipeline-col">
+      <div class="col-header">In Conversation <span class="col-count">4</span></div>
+      <div class="crm-card">
+        <div class="crm-card-name">Marcus T.</div>
+        <div class="crm-card-detail">Round Rock · $600k budget</div>
+        <span class="lead-score score-hot">⬆ Score 90</span>
+      </div>
+      <div class="crm-card">
+        <div class="crm-card-name">Linda R.</div>
+        <div class="crm-card-detail">Luxury · Westlake area</div>
+        <span class="lead-score score-hot">Score 78</span>
+      </div>
+    </div>
+    <div class="pipeline-col">
+      <div class="col-header">Appt Scheduled <span class="col-count">2</span></div>
+      <div class="crm-card">
+        <div class="crm-card-name">David N.</div>
+        <div class="crm-card-detail">Zoom call · Thu 2pm</div>
+        <span class="lead-score score-hot">⬆ Score 95</span>
+      </div>
+    </div>
+    <div class="pipeline-col">
+      <div class="col-header">Active Buyer <span class="col-count">5</span></div>
+      <div class="crm-card">
+        <div class="crm-card-name">The Chen Family</div>
+        <div class="crm-card-detail">Touring Sat · Pre-approved</div>
+        <span class="lead-score score-hot">🔥 Score 98</span>
+      </div>
+    </div>
+    <div class="pipeline-col">
+      <div class="col-header">Long-Term Nurture <span class="col-count">12</span></div>
+      <div class="crm-card">
+        <div class="crm-card-name">Ashley W.</div>
+        <div class="crm-card-detail">Day 30 email sent</div>
+        <span class="lead-score score-warm">Score 55</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ROI (04) -->
+<section class="roi-section reveal" id="roi">
+  <span class="section-tag">04 · The Impact</span>
+  <div class="roi-grid">
+    <div>
+      <h2>What this system<br><em>delivers</em> for you.</h2>
+      <p class="section-intro">Real numbers. Real outcomes. This is what agents using AI systems like this experience within the first 90 days.</p>
+    </div>
+    <div class="roi-numbers">
+      <div class="roi-item">
+        <div class="roi-num">3×</div>
+        <div class="roi-desc">
+          <h4>More Appointments Booked</h4>
+          <p>Because every lead gets an instant, warm response — not a voicemail.</p>
+        </div>
+      </div>
+      <div class="roi-item">
+        <div class="roi-num">60s</div>
+        <div class="roi-desc">
+          <h4>Response Time to Every Lead</h4>
+          <p>From Zillow, Instagram, Facebook, WhatsApp, or your website. Always.</p>
+        </div>
+      </div>
+      <div class="roi-item">
+        <div class="roi-num">0</div>
+        <div class="roi-desc">
+          <h4>Leads Lost to Slow Follow-Up</h4>
+          <p>Your AI team works while you sleep, show homes, and close deals.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- TECH STACK (05) -->
+<section class="stack-section reveal" id="stack">
+  <span class="section-tag">05 · What We Build With</span>
+  <h2>Built on <em>enterprise-grade</em><br>tools. Ready in weeks.</h2>
+  <p class="section-intro">We use industry-leading tools — the same infrastructure used by top SaaS companies — to build your system.</p>
+  <div class="stack-grid">
+    <div class="stack-card">
+      <span class="stack-icon">⚙️</span>
+      <h4>n8n Automation</h4>
+      <p>The brain of the system — connects all 6 agents and every integration.</p>
+    </div>
+    <div class="stack-card">
+      <span class="stack-icon">🤖</span>
+      <h4>Claude AI (Anthropic)</h4>
+      <p>Powers the warm, emotionally intelligent conversations across all agents.</p>
+    </div>
+    <div class="stack-card">
+      <span class="stack-icon">📊</span>
+      <h4>CRM Integration</h4>
+      <p>Works with Go High Level, HubSpot, or your existing CRM seamlessly.</p>
+    </div>
+    <div class="stack-card">
+      <span class="stack-icon">📅</span>
+      <h4>Google Calendar + Calendly</h4>
+      <p>Agent 4 books appointments directly into your real schedule.</p>
+    </div>
+    <div class="stack-card">
+      <span class="stack-icon">💬</span>
+      <h4>WhatsApp + Twilio</h4>
+      <p>Omnichannel messaging — SMS, WhatsApp, and email all in one.</p>
+    </div>
+    <div class="stack-card">
+      <span class="stack-icon">🔗</span>
+      <h4>Zillow + Meta APIs</h4>
+      <p>Direct integrations with your lead sources — no manual data entry ever.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- CTA (06) -->
+<section class="cta-section">
+  <span class="section-tag" style="display:block;text-align:center">06 · Ready to Begin</span>
+  <h2><span class="cta-name">Sharon,</span> your AI team<br>is ready to be deployed.</h2>
+  <p>We build, we test, we launch. You focus on closing deals.<br>Setup takes 2–3 weeks. Your first AI response goes live on day one.</p>
+  <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
+    <a href="https://firstmind.space" class="btn-gold" target="_blank">Book a Strategy Call</a>
+    <a href="mailto:bhuvnesh@firstmind.space" class="btn-ghost">Email Bhuvnesh Directly</a>
+  </div>
+  <p style="margin-top:3rem;font-size:0.8rem;color:var(--text3)">
+    Built by <strong style="color:var(--text2)">firstmind.space</strong> · 
+    Automation specialists for real estate & coaching businesses
+  </p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">firstmind.space</div>
+  <p>This proposal was built personally for Sharon · © 2026 firstmind.space</p>
+  <p>Powered by n8n · Claude AI · Built with ❤️ by Bhuvnesh</p>
+</footer>
+
+<script>
+// PARTICLES
+const canvas=document.getElementById('particles');
+const ctx=canvas.getContext('2d');
+let particles=[];
+function resize(){
+  canvas.width=window.innerWidth;
+  canvas.height=canvas.parentElement.offsetHeight;
+}
+resize();
+window.addEventListener('resize',resize);
+class Particle{
+  constructor(){
+    this.x=Math.random()*canvas.width;
+    this.y=Math.random()*canvas.height;
+    this.vx=(Math.random()-0.5)*0.3;
+    this.vy=(Math.random()-0.5)*0.3;
+    this.r=Math.random()*1.5+0.5;
+    this.a=Math.random()*0.4+0.1;
+    this.color=Math.random()>0.6?'212,168,67':'124,92,191';
+  }
+  update(){
+    this.x+=this.vx;this.y+=this.vy;
+    if(this.x<0||this.x>canvas.width)this.vx*=-1;
+    if(this.y<0||this.y>canvas.height)this.vy*=-1;
+  }
+  draw(){
+    ctx.beginPath();ctx.arc(this.x,this.y,this.r,0,Math.PI*2);
+    ctx.fillStyle=`rgba(${this.color},${this.a})`;ctx.fill();
+  }
+}
+for(let i=0;i<80;i++)particles.push(new Particle());
+function connectParticles(){
+  for(let i=0;i<particles.length;i++){
+    for(let j=i+1;j<particles.length;j++){
+      const dx=particles[i].x-particles[j].x;
+      const dy=particles[i].y-particles[j].y;
+      const d=Math.sqrt(dx*dx+dy*dy);
+      if(d<120){
+        ctx.beginPath();
+        ctx.moveTo(particles[i].x,particles[i].y);
+        ctx.lineTo(particles[j].x,particles[j].y);
+        ctx.strokeStyle=`rgba(212,168,67,${0.06*(1-d/120)})`;
+        ctx.lineWidth=0.5;ctx.stroke();
+      }
+    }
+  }
+}
+function animParticles(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  particles.forEach(p=>{p.update();p.draw()});
+  connectParticles();
+  requestAnimationFrame(animParticles);
+}
+animParticles();
+
+// COUNTER ANIMATION
+function animateCounter(el, target, suffix=''){
+  let start=0;const dur=2000;const step=16;
+  const inc=target/(dur/step);
+  const timer=setInterval(()=>{
+    start+=inc;
+    if(start>=target){start=target;clearInterval(timer);}
+    el.textContent=Math.floor(start)+(suffix);
+  },step);
+}
+const statNums=document.querySelectorAll('.stat-num[data-count]');
+let counted=false;
+function checkCounter(){
+  if(counted)return;
+  const hero=document.querySelector('.hero-stats');
+  if(!hero) return;
+  const rect=hero.getBoundingClientRect();
+  if(rect.top<window.innerHeight){
+    counted=true;
+    statNums.forEach(el=>{
+      const val=parseInt(el.dataset.count);
+      animateCounter(el,val,'');
+    });
+  }
+}
+window.addEventListener('scroll',checkCounter);
+
+// SCROLL REVEAL
+const reveals=document.querySelectorAll('.reveal');
+const revealObs=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting)e.target.classList.add('visible');
+  });
+},{threshold:0.1});
+reveals.forEach(r=>revealObs.observe(r));
+
+// SIMULATION
+const messages=[
+  {type:'system',text:'📍 New lead from Zillow — Sarah M., Denver CO',delay:500},
+  {type:'system',text:'⚡ Agent 1 triggered — responding in 38 seconds',delay:1500},
+  {type:'outgoing',text:"Hi Sarah! 👋 This is Sharon's team — thank you so much for your interest in the Austin listing. Moving from Denver is a big (and exciting!) step. I'd love to learn more about what you're looking for. What's drawing you to Austin?",delay:2500},
+  {type:'incoming',text:"Hi! Yes, we have 3 kids and my husband just got a job offer in Austin. We're hoping to be there by August. A bit stressed about the whole thing honestly 😅",delay:5000},
+  {type:'system',text:'🧠 Agent 3 detected: Family buyer · Urgent timeline · Mild stress',delay:6000},
+  {type:'outgoing',text:"August gives us a great runway! And I completely understand the stress — relocating with three kids is a lot to juggle. Let me help make this easier. What neighborhoods did you have in mind, or would you like some personalised recommendations based on your family's needs?",delay:7000},
+  {type:'incoming',text:"Personalised recommendations would be amazing. Our budget is around $550k. Good schools are the priority.",delay:9500},
+  {type:'system',text:'📊 Lead score updated: 82/100 — WARM → Agent 4 activated',delay:10500},
+  {type:'outgoing',text:"Perfect. Round Rock, Cedar Park, and Pflugerville are all excellent for families at that budget — and they have some of Austin's top-rated schools. Would you like to hop on a quick 20-minute Zoom call so I can walk you through each area? I have Thursday and Friday afternoons open 🗓️",delay:11500},
+  {type:'incoming',text:"Thursday 2pm works! Thank you so much, this already feels less overwhelming 😊",delay:14000},
+  {type:'system',text:'✅ Meeting booked — Thu 2pm · Calendar updated · Nurture sequence started',delay:15000},
+];
+
+let simRunning=false;let simTimeouts=[];
+
+function resetSim(){
+  simTimeouts.forEach(t=>clearTimeout(t));
+  simTimeouts=[];simRunning=false;
+  document.getElementById('chatbox').innerHTML='';
+  document.getElementById('typing-indicator').classList.remove('show');
+  document.querySelectorAll('.sim-step').forEach(s=>{
+    s.classList.remove('active','done');
+  });
+  document.getElementById('btn-play').classList.add('active-btn');
+  document.getElementById('btn-play').textContent='▶ Play Simulation';
+}
+
+function startSim(){
+  if(simRunning)return;
+  resetSim();
+  simRunning=true;
+  document.getElementById('btn-play').classList.remove('active-btn');
+  document.getElementById('btn-play').textContent='▶ Playing...';
+
+  messages.forEach((m,i)=>{
+    const t=setTimeout(()=>{
+      // Show typing before outgoing
+      if(m.type==='outgoing'){
+        document.getElementById('typing-indicator').classList.add('show');
+        setTimeout(()=>{
+          document.getElementById('typing-indicator').classList.remove('show');
+          addMsg(m);
+        },900);
+      } else {
+        addMsg(m);
+      }
+      // Update steps
+      const stepMap={1:0,2:1,4:2,6:3,8:4,10:5};
+      if(stepMap[i]!==undefined){
+        const prevStep=document.getElementById('step-'+(stepMap[i]-1));
+        if(prevStep)prevStep.classList.remove('active'),prevStep.classList.add('done');
+        const s=document.getElementById('step-'+stepMap[i]);
+        if(s)s.classList.add('active');
+      }
+    },m.delay);
+    simTimeouts.push(t);
+  });
+}
+
+function addMsg(m){
+  const chatbox=document.getElementById('chatbox');
+  const el=document.createElement('div');
+  el.className='msg '+m.type;
+  el.textContent=m.text;
+  chatbox.appendChild(el);
+  setTimeout(()=>el.classList.add('show'),50);
+  chatbox.scrollTop=chatbox.scrollHeight;
+}
+
+// Auto-start sim when in view
+const simObs=new IntersectionObserver((entries)=>{
+  if(entries[0].isIntersecting&&!simRunning){
+    setTimeout(startSim,800);
+  }
+},{threshold:0.3});
+const simEl=document.querySelector('.phone-frame');
+if(simEl)simObs.observe(simEl);
+</script>
+</body>
+</html>
